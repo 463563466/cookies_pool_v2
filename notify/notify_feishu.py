@@ -51,9 +51,9 @@ class NotifyFeishu(NotifyBase, FeishuApi):
 
 if __name__ == '__main__':
     def demo():
-        from settings import FETSHU_GROUP_CONFIG
+        from settings import FEISHU_GROUP_CONFIG
 
-        aa = NotifyFeishu(FeishuKey, FETSHU_GROUP_CONFIG)
+        aa = NotifyFeishu(FeishuKey, FEISHU_GROUP_CONFIG)
         aa.send_message('数据采集监控', ['************'], content="这是一段测试文本")
         aa.send_message('数据采集监控', ['************'], content="这是一段测试文本")
 

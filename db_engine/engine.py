@@ -15,11 +15,11 @@ from sqlalchemy.exc import IntegrityError
 # sys.path.append(os.path.join(F_PATH, '..'))
 # sys.path.append(os.path.join(F_PATH, '../..'))
 from db_engine.engine_base import EngineBase
-from settings import MysqlConfig
+from settings import MySQLConfig
 
 
 class Engine(EngineBase):
-    def __init__(self, mysql_config: Type[MysqlConfig]):
+    def __init__(self, mysql_config: Type[MySQLConfig]):
         self.engine = self.engine_create(mysql_config)
 
     @staticmethod
@@ -78,7 +78,7 @@ class Engine(EngineBase):
 
 if __name__ == '__main__':
     def demo():
-        engine = Engine(MysqlConfig)
+        engine = Engine(MySQLConfig)
         engine.engine_close()
 
 

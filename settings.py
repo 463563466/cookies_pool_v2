@@ -28,7 +28,7 @@ class TableConfig(Enum):
     verifycode = 'work_verification_code'
 
 
-class MysqlConfig(Enum):
+class MySQLConfig(Enum):
     host = '****************'
     port = 3306
     db = '****************'
@@ -42,7 +42,7 @@ class FeishuKey(Enum):
     app_id = '****************'
 
 
-FETSHU_GROUP_CONFIG = {
+FEISHU_GROUP_CONFIG = {
     "****************": {
         "url": 'https://open.feishu.cn/open-apis/bot/v2/hook/****************',
         "key": '****************'

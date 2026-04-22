@@ -1,42 +1,33 @@
 # -*- coding: UTF-8 -*-
-# @author: ylw
-# @file: demo
-# @time: 2025-01-12
-# @desc:
-# import sys
-# import os
-
-# F_PATH = os.path.dirname(__file__)
-# sys.path.append(os.path.join(F_PATH, '..'))
-# sys.path.append(os.path.join(F_PATH, '../..'))
 from engine import engine
-from lib.ck_poll import CookiePoll
-from lib.ck_poll_init_config import CookiePollInitConfig
+from lib.cookie_pool import CookiePool
+from lib.cookie_pool_config import CookiePoolConfig
 
 from accounts.account_base_class import AccountBaseClass
 from account_config import ALL_ACCOUNT_INFO
 
 from logins.login.demo import DemoLogin
 from notify.notify_feishu import NotifyFeishu, FeishuKey
-from settings import FETSHU_GROUP_CONFIG
+from settings import FEISHU_GROUP_CONFIG
 
 
 def demo():
-    cp = CookiePoll(engine, CookiePollInitConfig(
+    """
+    阻塞式运行入口：注册登录类和通知类后，由调度器持续维护 cookie。
+    真实业务中只需要把 DemoLogin 替换成自己的平台登录类。
+    """
+    cp = CookiePool(engine, CookiePoolConfig(
         account_config=AccountBaseClass('平台', ALL_ACCOUNT_INFO['平台']),
         platform='平台-平台',
-        maintainer=[12345678901],  # 消息通知人手机号
-        timer=(5, 23, 10),  # 每天 5点 到 23点, 每十分钟主动检测一次cookie任务是否过期
-        open_init_task=False,  # 初始化下发任务
-        open_check=False  # 主动检测cookie是否过期
+        maintainer=[12345678901],
+        timer=(5, 23, 10),
+        open_init_task=False,
+        open_check=False
     ))
-    cp.register_login_instance(DemoLogin)  # 注册登录类
-    cp.register_notify_tools(NotifyFeishu, FeishuKey, FETSHU_GROUP_CONFIG)  # 注册通知类
-
+    cp.register_login_instance(DemoLogin)
+    cp.register_notify_tools(NotifyFeishu, FeishuKey, FEISHU_GROUP_CONFIG)
     cp.start()
 
 
-demo()
-
 if __name__ == '__main__':
-    pass
+    demo()

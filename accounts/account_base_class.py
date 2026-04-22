@@ -15,7 +15,7 @@ from typing import Dict, Optional
 
 
 @dataclass
-class AccountConfigTemp:
+class AccountConfig:
     platform: str  # 平台
     account: str  # 账
     password: str  # 密
@@ -28,13 +28,13 @@ class AccountConfigTemp:
 class AccountBaseClass:
 
     def __init__(self, platform, data: Dict[str, Dict[str, str]]):
-        self._account_data: Dict[str, AccountConfigTemp] = self._init_config(platform, data)
+        self._account_data: Dict[str, AccountConfig] = self._init_config(platform, data)
 
     @staticmethod
-    def _init_config(platform, data: Dict[str, Dict[str, str]]) -> Dict[str, AccountConfigTemp]:
-        new_data: Dict[str, AccountConfigTemp] = {}
+    def _init_config(platform, data: Dict[str, Dict[str, str]]) -> Dict[str, AccountConfig]:
+        new_data: Dict[str, AccountConfig] = {}
         for store_code, account_info in data.items():
-            new_data[store_code] = AccountConfigTemp(
+            new_data[store_code] = AccountConfig(
                 platform=platform,
                 account=account_info['account'],
                 password=account_info['password'],
@@ -45,7 +45,7 @@ class AccountBaseClass:
             )
         return new_data
 
-    def account_config(self) -> Dict[str, AccountConfigTemp]:
+    def account_config(self) -> Dict[str, AccountConfig]:
         """动态加载账号配置/暴露一个口子出去/子店铺经常改名的问题可以在这里进行处理(子类重写, 默认不处理)"""
         return self._account_data
 

@@ -14,7 +14,7 @@ from DrissionPage.errors import PageDisconnectedError
 # sys.path.append(os.path.join(F_PATH, '../..'))
 
 
-class DpTabContex:
+class DpTabContext:
     def __init__(self, page: WebPage, url: str):
         self._tab: WebPageTab = page.new_tab(url)
 

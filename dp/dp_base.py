@@ -11,13 +11,13 @@ from DrissionPage import WebPage, ChromiumOptions
 # F_PATH = os.path.dirname(__file__)
 # sys.path.append(os.path.join(F_PATH, '..'))
 # sys.path.append(os.path.join(F_PATH, '../..'))
-from dp.dp_content import DpTabContex, DpContextSync
+from dp.dp_content import DpTabContext, DpContextSync
 from dp.tools import calculate_number, path_join
 
 from logger import logger
 
 
-class DpBaes:
+class DpBase:
     browser: ChromiumOptions = None
     page: WebPage = None
 
@@ -25,9 +25,14 @@ class DpBaes:
     user_data_path: str = None
 
     @staticmethod
-    def new_tab_contex(page: WebPage, url) -> ContextManager:
+    def new_tab_context(page: WebPage, url) -> ContextManager:
         """封装获得新的 tab窗口， 上下文写法"""
-        return DpTabContex(page, url)
+        return DpTabContext(page, url)
+
+    @staticmethod
+    def new_tab_contex(page: WebPage, url) -> ContextManager:
+        """兼容旧方法名。"""
+        return DpBase.new_tab_context(page, url)
 
     def get_page_cookie(self, page: Optional[WebPage] = None, *, all_domain=True, as_dict=False) -> Union[str, dict]:
         """返回当前页面下的cookie"""

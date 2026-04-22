@@ -10,13 +10,13 @@
 # sys.path.append(os.path.join(F_PATH, '..'))
 # sys.path.append(os.path.join(F_PATH, '../..'))
 from db_engine.engine import Engine
-from settings import MysqlConfig
+from settings import MySQLConfig
 
 __all__ = [
     'engine'
 ]
 
-engine = Engine(MysqlConfig)
+engine = Engine(MySQLConfig)
 
 if __name__ == '__main__':
     pass

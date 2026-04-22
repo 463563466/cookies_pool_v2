@@ -18,11 +18,11 @@ from sqlalchemy.engine import Connection
 # sys.path.append(os.path.join(F_PATH, '..'))
 # sys.path.append(os.path.join(F_PATH, '../..'))
 from db_engine.switch_db import SwitchDB
-from settings import MysqlConfig
+from settings import MySQLConfig
 
 
 class EngineBase:
-    CONN_MODE = "mysql+pymysql://{user}:{pwd}@{host}:{port}/{db}?charset={charset}"
+    CONN_MODE = "mysql+pymysql://{user}:{password}@{host}:{port}/{db}?charset={charset}"
     engine: Optional[Engine] = None
     __F = TypeVar('__F', bound=Callable[..., Optional[Any]])
 
@@ -31,10 +31,10 @@ class EngineBase:
             raise TypeError("Cannot instantiate EngineBase directly. It must be subclassed.")
         return super().__new__(cls)
 
-    def engine_create(self, mysql_config: Type[MysqlConfig]) -> Engine:
+    def engine_create(self, mysql_config: Type[MySQLConfig]) -> Engine:
         return create_engine(self.CONN_MODE.format(
             user=mysql_config.user.value,
-            pwd=parse.quote(mysql_config.password.value),
+            password=parse.quote(mysql_config.password.value),
             host=mysql_config.host.value,
             port=mysql_config.port.value,
             charset=mysql_config.charset.value,
